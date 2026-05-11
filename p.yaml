@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-dep
+  namespaces: dev
+spec:
+  minReadySeconds: 5
+  replicas: 5
+  selector:
+    matchLabels:
+      app: red-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      name: my-red-pod
+      labels:
+        app: red-app 
+    spec:
+      containers:
+        - name: red-con
+          image: opsbynikhil/redpage:REDPAGE
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            successThreshold: 1
+            failureThreshold: 5
+      resources:
+        requests: 
+          cpu: 250m
+          memory: 64Mi
+        limits:
+          cpu: 450m
+          memory: 128Mi
