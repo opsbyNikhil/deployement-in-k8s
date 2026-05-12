@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: pod-dep
   namespace: dev
+  annotations:
+    kubernetes.io/change-cause: "Deploy in redpage"
+    docker_url: "" 
 spec:
   minReadySeconds: 5
   replicas: 5
