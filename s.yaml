@@ -10,4 +10,4 @@ spec:
   ports:
     - name: node
       port: 80
-      nodePort: 31234
+      nodePort: 32000
